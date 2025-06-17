@@ -16,8 +16,6 @@ with open("newpage.txt") as f:
     newpage = f.read()
 
 title_idx = min([idx for idx,val in enumerate(preamble) if (val == "}" and preamble[idx - 6:idx - 1] == "title")])
-print(title_idx)
-
 
 def parse(inp):
     course_name = "Math " + inp[0].upper()
