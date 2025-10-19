@@ -1,18 +1,19 @@
 import sys
-
-with open("preamble.txt") as f:
+import os
+txt_path = "/Users/coleellison/documents/cs/latex"
+with open(f"{txt_path}/preamble.txt") as f:
     preamble = f.read()
-with open("problem.txt") as f:
+with open(f"{txt_path}/problem.txt") as f:
     problem = f.read()
-with open("enum_start.txt") as f:
+with open(f"{txt_path}/enum_start.txt") as f:
     enum_start = f.read()
-with open("enum_item.txt") as f:
+with open(f"{txt_path}/enum_item.txt") as f:
     enum_item = f.read()
-with open("enum_end.txt") as f:
+with open(f"{txt_path}/enum_end.txt") as f:
     enum_end = f.read()
-with open("postamble.txt") as f:
+with open(f"{txt_path}/postamble.txt") as f:
     postamble = f.read()
-with open("newpage.txt") as f:
+with open(f"{txt_path}/newpage.txt") as f:
     newpage = f.read()
 
 title_idx = min([idx for idx,val in enumerate(preamble) if (val == "}" and preamble[idx - 6:idx - 1] == "title")])
@@ -66,4 +67,11 @@ def template(inp):
     return output
 
 if __name__ == "__main__":
-    print(template(sys.argv[1:]))
+    custom_template = template(sys.argv[1:])
+    class_name = sys.argv[1]
+    assignment_name = sys.argv[2]
+    assignment_path = os.path.expanduser(f"~/Documents/tex/{class_name}/{assignment_name}")
+    os.system(f"mkdir {assignment_path}")
+    os.system(f"touch {assignment_path}/{assignment_name}.tex")
+    with open(f"{assignment_path}/{assignment_name}.tex", "w") as f:
+        f.write(custom_template)
