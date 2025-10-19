@@ -1,19 +1,26 @@
-import sys
-import os
-txt_path = "/Users/coleellison/documents/cs/latex"
-with open(f"{txt_path}/preamble.txt") as f:
+import sys,os
+
+gen_dir = "/home/coleellison/Documents/cs/template/"
+
+with open(f"{gen_dir}preamble.txt") as f:
     preamble = f.read()
-with open(f"{txt_path}/problem.txt") as f:
+with open(f"{gen_dir}problem.txt") as f:
     problem = f.read()
-with open(f"{txt_path}/enum_start.txt") as f:
+with open(f"{gen_dir}enum_start.txt") as f:
     enum_start = f.read()
-with open(f"{txt_path}/enum_item.txt") as f:
+with open(f"{gen_dir}enum_item.txt") as f:
     enum_item = f.read()
-with open(f"{txt_path}/enum_end.txt") as f:
+with open(f"{gen_dir}enum_end.txt") as f:
     enum_end = f.read()
-with open(f"{txt_path}/postamble.txt") as f:
+with open(f"{gen_dir}enum_proof_start.txt") as f:
+    enum_proof_start = f.read()
+with open(f"{gen_dir}enum_proof_item.txt") as f:
+    enum_proof_item = f.read()
+with open(f"{gen_dir}enum_proof_end.txt") as f:
+    enum_proof_end = f.read()
+with open(f"{gen_dir}postamble.txt") as f:
     postamble = f.read()
-with open(f"{txt_path}/newpage.txt") as f:
+with open(f"{gen_dir}newpage.txt") as f:
     newpage = f.read()
 
 title_idx = min([idx for idx,val in enumerate(preamble) if (val == "}" and preamble[idx - 6:idx - 1] == "title")])
@@ -56,8 +63,16 @@ def enum_problem(n):
     problem = enum_start[:-1]
     for i in range(n):
         problem += "\n"
-        problem += enum_item
+        problem += enum_item[:-1]
+    problem += "\n"
     problem += enum_end
+    problem += "\n"
+    problem += enum_proof_start[:-1]
+    for i in range(n):
+        problem += "\n"
+        problem += enum_proof_item[:-1]
+    problem += "\n"
+    problem += enum_proof_end
     return problem
 
 def template(inp):
